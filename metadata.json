@@ -1,0 +1,6 @@
+{
+  "name": "靈魂之花生命原型計算器",
+  "description": "專為工作坊現場設計的生命原型計算器，支援個人與對比計算，以溫暖清新的心理探索風格呈現九大原型與所屬航線。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
