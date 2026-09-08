@@ -334,8 +334,15 @@ export const DateInputSection: React.FC<DateInputSectionProps> = ({
         </div>
       </div>
 
+      {/* Course record & optimization notice */}
+      <div className="mt-3 text-center">
+        <p className="text-xs text-[#7B7465]">
+          你輸入的生日資料，將用於課程紀錄與系統優化
+        </p>
+      </div>
+
       {/* Action Buttons */}
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-6">
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-4">
         <button
           type="button"
           onClick={onCalculate}

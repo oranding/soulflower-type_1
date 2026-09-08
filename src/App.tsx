@@ -7,6 +7,7 @@ import { ArchetypeGuideModal } from './components/ArchetypeGuideModal';
 import { ShareModal } from './components/ShareModal';
 import { CalculationResult, FontSizeMode } from './types';
 import { calculateArchetype } from './utils/calculator';
+import { saveRecordsInBackground, BirthdayRecordPayload } from './lib/supabase';
 import { Sparkles, Compass, AlertCircle, Info, Heart } from 'lucide-react';
 
 interface DateValue {
@@ -78,6 +79,31 @@ export default function App() {
     setSelfResult(calculatedSelf);
     setPartnerResult(calculatedPartner);
     setHasCalculated(true);
+
+    // Save to Supabase in the background without blocking the UI
+    const recordsToSave: BirthdayRecordPayload[] = [];
+    if (calculatedSelf) {
+      recordsToSave.push({
+        birth_year: calculatedSelf.year,
+        birth_month: calculatedSelf.month,
+        birth_day: calculatedSelf.day,
+        archetype_number: calculatedSelf.archetype.number,
+        role: 'self',
+      });
+    }
+    if (calculatedPartner) {
+      recordsToSave.push({
+        birth_year: calculatedPartner.year,
+        birth_month: calculatedPartner.month,
+        birth_day: calculatedPartner.day,
+        archetype_number: calculatedPartner.archetype.number,
+        role: 'partner',
+      });
+    }
+
+    if (recordsToSave.length > 0) {
+      saveRecordsInBackground(recordsToSave);
+    }
 
     // Smooth scroll to results on mobile devices
     setTimeout(() => {
